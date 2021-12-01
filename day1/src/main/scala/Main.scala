@@ -1,5 +1,4 @@
 import scala.io.Source
-import scala.io.BufferedSource
 
 @main def day1: Unit =
   def source = Source.fromResource("input.txt").getLines.map(_.toInt)
