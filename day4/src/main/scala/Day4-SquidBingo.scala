@@ -81,31 +81,26 @@ object Day4SquidBingo extends IOApp.Simple:
     ((s: String) => s.toIntOption).unlift
   })
 
-  def playToWin(numbers: List[Int], sheets: List[BingoSheet]): Option[Int] = numbers match {
-    case head :: tail =>
-      win(head, sheets) match {
-        case Right(next) => playToWin(tail, next)
-        case Left(score) => Some(score)
-      }
-    case Nil => None
-  }
+  def playToWin(numbers: List[Int], sheets: List[BingoSheet]): Option[Score] =
+    play(numbers, sheets, win)
+  def playToLose(numbers: List[Int], sheets: List[BingoSheet]): Option[Score] =
+    play(numbers, sheets, lose)
 
-  def playToLose(numbers: List[Int], sheets: List[BingoSheet]): Option[Int] = numbers match {
-    case head :: tail =>
-      lose(head, sheets) match {
-        case Right(next) => playToLose(tail, next)
-        case Left(score) => Some(score)
-      }
-    case Nil => None
-  }
+  //this looks suspiciously much like tailrecM
+  def play[A, B, C](moves: List[A], sheets: B, step: (A, B) => Either[C, B]): Option[C] =
+    moves match {
+      case head :: tail =>
+        step(head, sheets) match {
+          case Right(next) => play(tail, next, step)
+          case Left(score) => Some(score)
+        }
+      case Nil => None
+    }
 
-  def win(number: Int, sheets: List[BingoSheet]): Either[Score, List[BingoSheet]] = sheets.traverse(sheet => sheet.clear(number))
-  
-  def lose(number: Int, sheets: List[BingoSheet]) = {
+  def win(number: Int, sheets: List[BingoSheet]): Either[Score, List[BingoSheet]] =
+    sheets.traverse(sheet => sheet.clear(number))
+
+  def lose(number: Int, sheets: List[BingoSheet]) =
     val (winners, losers) = sheets.map(sheet => sheet.clear(number)).separate
     if losers.isEmpty then Left(winners.head)
     else Right(losers)
-
-  }
-
-//49840 is too low
