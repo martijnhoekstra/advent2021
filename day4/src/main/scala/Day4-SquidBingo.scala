@@ -85,7 +85,7 @@ object Day4SquidBingo extends IOApp.Simple:
   def playToLose(numbers: List[Int], sheets: List[BingoSheet]): Option[Score] =
     play(numbers, sheets, lose)
 
-  //this looks suspiciously much like tailrecM
+  // this looks suspiciously much like tailrecM
   def play[A, B, C](moves: List[A], sheets: B, step: (A, B) => Either[C, B]): Option[C] =
     moves match {
       case head :: tail =>
