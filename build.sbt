@@ -26,5 +26,6 @@ lazy val day2 = project.settings(standardSettings(2)).dependsOn(util)
 lazy val day3 = project.settings(standardSettings(3)).dependsOn(util)
 lazy val day4 = project.settings(standardSettings(4)).dependsOn(util)
 lazy val day5 = project.settings(standardSettings(5)).dependsOn(util)
+lazy val day6 = project.settings(standardSettings(6)).dependsOn(util)
 
-lazy val root = project.in(file(".")).aggregate(util, day1, day2, day3, day4, day5)
+lazy val root = project.in(file(".")).aggregate(util, day1, day2, day3, day4, day5, day6)

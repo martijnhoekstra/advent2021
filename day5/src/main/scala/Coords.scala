@@ -14,7 +14,6 @@ object Coords:
     def y = c & ((1 << bitlen) - 1)
     def format = s"${c.x},${c.y}"
 
-
   case class Line(start: Coord, end: Coord):
     val points: Set[Coord] = if start.x == end.x then
       val min = math.min(start.y, end.y)
@@ -38,8 +37,8 @@ object Coords:
       init + end
 
   /* The set of coordinates where they intersect.
-  * 
-  * You could optimize by making points a lazy val and then first checking if it could at all
-  * intersect by checking whether they have points in the same bounding box, but it's plenty fast like this
-  */
+   *
+   * You could optimize by making points a lazy val and then first checking if it could at all
+   * intersect by checking whether they have points in the same bounding box, but it's plenty fast like this
+   */
   def intersections(line1: Line, line2: Line): Set[Coord] = line1.points.intersect(line2.points)
