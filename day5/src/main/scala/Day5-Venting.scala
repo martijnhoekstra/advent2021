@@ -20,7 +20,7 @@ object Day5Venting extends IOApp.Simple:
     val pcoord = (int ~ (P.char(',') *> int)).map(Coord.apply)
     (pcoord ~ (P.string(" -> ") *> pcoord)).map{ case (c1, c2) => Line(c1, c2)}
 
-  override def run: IO[Unit] = {
+  override def run: IO[Unit] =
     for {
       input <- "/input.txt"
         .resourceLines[IO]
@@ -30,4 +30,3 @@ object Day5Venting extends IOApp.Simple:
       multiple = combinations(input).foldMap(intersections) // it's still always foldMap
       _ <- IO(println(multiple.size))
     } yield ()
-  }

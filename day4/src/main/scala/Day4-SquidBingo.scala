@@ -57,7 +57,7 @@ object Bingo:
 
 object Day4SquidBingo extends IOApp.Simple:
   import Bingo._
-  override def run: IO[Unit] = {
+  override def run: IO[Unit] =
     for {
       input <- "/input.txt".resourceLines[IO].compile.toList
       bingoNumbers = input.head.split(',').toList.map(_.toInt)
@@ -75,7 +75,6 @@ object Day4SquidBingo extends IOApp.Simple:
       _ <- IO(println(resultWin))
       _ <- IO(println(resultLose))
     } yield ()
-  }
 
   def readCard(lines: Seq[String]) = lines.foldMap(_.split("\\s+").toVector.collect {
     ((s: String) => s.toIntOption).unlift
