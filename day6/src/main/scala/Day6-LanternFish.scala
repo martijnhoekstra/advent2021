@@ -46,8 +46,8 @@ object Day6LanternFish extends IOApp.Simple:
 
     val day80 = progression.take(257).compile.last
 
-    for {
+    for
       age <- day80
       total = age.toList.flatMap(_.toMap.toList).foldMap(_._2)
       _ <- IO(println(s"there are $total fish"))
-    } yield ()
+    yield ()

@@ -91,7 +91,7 @@ object Day3Diagnostics extends IOApp.Simple:
   def co2Value(patterns: List[BitPattern]) = applyBitCriteria(patterns, co2BitCriterium.curried).head.head
 
   override def run: IO[Unit] =
-    for {
+    for
       sum <- "/input.txt".resourceLines[IO].foldMap(parseSum).compileSingleton
       gamma = sum.toMostCommon.toInt
       epsilon = sum.toLeastCommon.toInt
@@ -103,4 +103,4 @@ object Day3Diagnostics extends IOApp.Simple:
        _ <- IO(println(s"co2: ${co2.stringPattern} = ${co2.toInt}"))
        _ <- IO(println(s"p2: ${o2.toInt.toLong * co2.toInt.toLong}"))
 
-    } yield ()
+    yield ()

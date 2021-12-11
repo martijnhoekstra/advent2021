@@ -21,7 +21,7 @@ object Day5Venting extends IOApp.Simple:
     (pcoord ~ (P.string(" -> ") *> pcoord)).map { case (c1, c2) => Line(c1, c2) }
 
   override def run: IO[Unit] =
-    for {
+    for
       input <- "/input.txt"
         .resourceLines[IO]
         .map(l => pLine.parseAll(l).toOption.get)
@@ -29,4 +29,4 @@ object Day5Venting extends IOApp.Simple:
         .to(LazyList)
       multiple = combinations(input).foldMap(intersections) // it's still always foldMap
       _ <- IO(println(multiple.size))
-    } yield ()
+    yield ()

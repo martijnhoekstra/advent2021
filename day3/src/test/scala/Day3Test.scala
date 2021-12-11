@@ -25,11 +25,11 @@ class IntegerSuite extends CatsEffectSuite with ScalaCheckSuite:
 
     val expectedPatterns = List(o25, o24, o23, o22, o21)
     val expectedStringPatterns = expectedPatterns.map(_.map(_.stringPattern))
-    for {
+    for
       pats <- patterns
       steps = applyBitCriteria(pats, oxygenBitCriterium.curried)
       result = steps.head.head
-    } yield {
+    yield {
       assertEquals(
         steps.init.map(_.toSeq.map(_.stringPattern).toSet),
         expectedStringPatterns
@@ -49,11 +49,11 @@ class IntegerSuite extends CatsEffectSuite with ScalaCheckSuite:
 
     val expectedPatterns = List(o25, o24, o23, o22, o21)
     val expectedStringPatterns = expectedPatterns.map(_.map(_.stringPattern))
-    for {
+    for
       pats <- patterns
       steps = applyBitCriteria(pats, co2BitCriterium.curried)
       result = steps.head.head.toInt
-    } yield {
+    yield {
       assertEquals(
         steps.take(patternLength).map(_.toSeq.map(_.stringPattern).toSet),
         expectedStringPatterns

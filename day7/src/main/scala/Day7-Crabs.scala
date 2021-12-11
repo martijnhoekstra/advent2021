@@ -16,7 +16,7 @@ object Day7Crabs extends IOApp.Simple:
       .foldMonoid
       .flatMap(bulk => Stream.emits(splitInts(bulk)))
 
-    val puzzle1 = for {
+    val puzzle1 = for
       // the total absolute deviation (and thus amount of fuel burnt) is smaller than any other
       // around the median, hence, the median is the number we align our crabs to
       rawPositions <- crabPositions.compile.toVector
@@ -31,11 +31,11 @@ object Day7Crabs extends IOApp.Simple:
       totalFuel = positions.foldMap(pos => math.abs(pos - integerMedian))
       _ <- IO(println(s"most fuel-efficient crab-alignment is $integerMedian"))
       _ <- IO(println(s"spending $totalFuel fuel"))
-    } yield ()
+    yield ()
 
     val puzzle2 = {
       def triangularDistance(n: Int) = (n.toLong * (n + 1)) / 2
-      for {
+      for
         // the total absolute triangular deviation (and thus amount of fuel burnt) is smaller than any other
         // around the mean, hence, the mean is the number we align our crabs to
         rawPositions <- crabPositions.compile.toVector
@@ -43,7 +43,7 @@ object Day7Crabs extends IOApp.Simple:
         totalFuel = rawPositions.foldMap(pos => triangularDistance(math.abs(pos - mean)))
         _ <- IO(println(s"most fuel-efficient crab-alignment is $mean"))
         _ <- IO(println(s"spending $totalFuel fuel"))
-      } yield ()
+      yield ()
     }
 
     puzzle1 *> puzzle2

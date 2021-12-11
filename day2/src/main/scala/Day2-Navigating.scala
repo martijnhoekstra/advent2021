@@ -21,7 +21,7 @@ object Day2Navigating extends IOApp.Simple:
 
   override def run: IO[Unit] =
     val directions = "/input.txt".resourceLines[IO].takeWhile(!_.isBlank)
-    for {
+    for
       destination1 <- directions.foldMap(parse1).compileSingleton
       destination2 <- directions
         .map(parse2)
@@ -32,7 +32,7 @@ object Day2Navigating extends IOApp.Simple:
         .compileSingleton
       _ <- IO(println(s"puzzle1: ${destination1._1 * destination1._2}"))
       _ <- IO(println(s"puzzle2: ${destination2.pos._1 * destination2.pos._2}"))
-    } yield ()
+    yield ()
 
   def parse1(line: String): Coords = line match {
     case s"forward $x" => (x.toInt, 0)
